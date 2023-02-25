@@ -71,7 +71,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Login | Devias Kit
+          Admin Dashboard: Login
         </title>
       </Head>
       <Box
