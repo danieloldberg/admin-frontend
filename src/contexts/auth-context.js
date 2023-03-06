@@ -100,38 +100,10 @@ export const AuthProvider = props => {
     []
   )
 
-  const skip = () => {
-    try {
-      window.sessionStorage.setItem('authenticated', 'true')
-    } catch (err) {
-      console.error(err)
-    }
-
-    const user = {
-      id: '5e86809283e28b96d2d38537',
-      avatar: '/assets/avatars/avatar-anika-visser.png',
-      name: 'Anika Visser',
-      email: 'anika.visser@devias.io'
-    }
-
-    dispatch({
-      type: HANDLERS.SIGN_IN,
-      payload: user
-    })
-  }
-
   const signIn = async (email, password) => {
-    //   if (email !== 'demo@devias.io' || password !== 'Password123!') {
-    //     throw new Error('Please check your email and password');
-    // }
     try {
       const signInInfo = await Auth.signIn(email, password)
-      const user = {
-        id: signInInfo.username,
-        avatar: '',
-        name: signInInfo.attributes.name,
-        email: signInInfo.attributes.email,
-      }
+      const user = signInInfo
       dispatch({
         type: HANDLERS.SIGN_IN,
         payload: user
@@ -145,18 +117,6 @@ export const AuthProvider = props => {
     } catch (err) {
       console.error(err)
     }
-
-    // const user = {
-    //   id: '5e86809283e28b96d2d38537',
-    //   avatar: '/assets/avatars/avatar-anika-visser.png',
-    //   name: 'Anika Visser',
-    //   email: 'anika.visser@devias.io'
-    // }
-
-    // dispatch({
-    //   type: HANDLERS.SIGN_IN,
-    //   payload: user
-    // });
   }
 
   const signUp = async (email, name, password) => {
@@ -180,7 +140,12 @@ export const AuthProvider = props => {
   };
   
 
-  const signOut = () => {
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
     dispatch({
       type: HANDLERS.SIGN_OUT
     })
@@ -190,7 +155,6 @@ export const AuthProvider = props => {
     <AuthContext.Provider
       value={{
         ...state,
-        skip,
         signIn,
         signUp,
         signOut

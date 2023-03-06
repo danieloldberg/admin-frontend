@@ -43,7 +43,8 @@ export const AccountPopover = (props) => {
           color="text.secondary"
           variant="body2"
         >
-          { auth.user.attributes.name }
+          { auth.user?.attributes?.name }
+          
         </Typography>
       </Box>
       <Divider />

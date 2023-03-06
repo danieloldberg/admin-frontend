@@ -35,14 +35,5 @@ export const items = [
         <ShoppingBagIcon />
       </SvgIcon>
     )
-  },
-  {
-    title: 'Error',
-    path: '/404',
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
-      </SvgIcon>
-    )
   }
 ];
